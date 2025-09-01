@@ -1,0 +1,63 @@
+city-movers/
+├── public/
+│   ├── animations/
+│   │   ├── box.json
+│   │   ├── consult.json
+│   │   ├── storage.json
+│   │   └── truck.json
+│   ├── fonts/
+│   │   └── entoto.ttf
+│   ├── images/
+│   │   ├── 1D6A4821.png
+│   │   ├── 1D6A4834.png
+│   │   ├── 1D6A4847.png
+│   │   ├── 1D6A4898.png
+│   │   ├── 1D6A4945.png
+│   │   ├── 1D6A4970.png
+│   │   └── logo.png
+│   └── favicon.ico
+├── src/
+│   ├── app/
+│   │   ├── globals.css
+│   │   ├── layout.tsx
+│   │   ├── page.tsx
+│   │   └── providers.tsx
+│   ├── components/
+│   │   ├── animations/
+│   │   │   ├── box.tsx
+│   │   │   ├── consult.tsx
+│   │   │   ├── storage.tsx
+│   │   │   └── truck.tsx
+│   │   ├── common/
+│   │   │   ├── Header.tsx
+│   │   │   ├── LanguageToggle.tsx
+│   │   │   └── ThemeToggle.tsx
+│   │   ├── context/
+│   │   │   ├── LanguageContext.tsx
+│   │   │   └── ThemeContext.tsx
+│   │   ├── data/
+│   │   │   └── globe.json
+│   │   └── ui/
+│   │       ├── aceternity/
+│   │       │   └── resizable-navbar.tsx
+│   │       ├── button.tsx
+│   │       ├── dropdown-menu.tsx
+│   │       └── sonner.tsx
+│   ├── hooks/
+│   │   └── useCalendar.ts
+│   ├── lib/
+│   │   ├── translate.ts
+│   │   └── utils.ts
+│   └── translations/
+│       ├── am.ts
+│       ├── en.ts
+│       └── index.ts
+├── .gitignore
+├── components.json
+├── eslint.config.mjs
+├── next-env.d.ts
+├── next.config.ts
+├── package.json
+├── postcss.config.mjs
+├── README.md
+└── tsconfig.json
