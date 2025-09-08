@@ -2,6 +2,38 @@
 
 import { useLanguage } from "@/components/context/LanguageContext";
 
+const isLeapYear = (year: number) =>
+  (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
+
+const gregorianToJDN = (year: number, month: number, day: number) => {
+  const a = Math.floor((14 - month) / 12);
+  year = year + 4800 - a;
+  month = month + 12 * a - 3;
+  return (
+    day +
+    Math.floor((153 * month + 2) / 5) +
+    365 * year +
+    Math.floor(year / 4) -
+    Math.floor(year / 100) +
+    Math.floor(year / 400) -
+    32045
+  );
+};
+
+const JDNToEthiopian = (jdn: number) => {
+  const r = (jdn - 1723856) % 1461;
+  const n = (r % 365) + 365 * Math.floor(r / 1460);
+
+  const year =
+    4 * Math.floor((jdn - 1723856) / 1461) +
+    Math.floor(r / 365) -
+    Math.floor(r / 1460);
+  const month = Math.floor(n / 30) + 1;
+  const day = (n % 30) + 1;
+
+  return { year, month, day };
+};
+
 export const useCalendar = () => {
   const { language } = useLanguage();
 
@@ -15,10 +47,10 @@ export const useCalendar = () => {
     if (language !== "am") {
       const timeString = options?.includeTime
         ? gregorianDate.toLocaleTimeString("en-US", {
-            hour: "2-digit",
-            minute: "2-digit",
-            hour12: true,
-          })
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: true,
+        })
         : "";
 
       const dateString = gregorianDate.toLocaleDateString("en-US", {
@@ -36,10 +68,10 @@ export const useCalendar = () => {
     // Ethiopian
     const timeString = options?.includeTime
       ? etTime.toLocaleTimeString("en-US", {
-          hour: "2-digit",
-          minute: "2-digit",
-          hour12: true,
-        })
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true,
+      })
       : "";
 
     const ethiopianWeekdays = [
@@ -68,38 +100,6 @@ export const useCalendar = () => {
       "ጷግሜ",
     ];
 
-    const isLeapYear = (year: number) =>
-      (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
-
-    const gregorianToJDN = (year: number, month: number, day: number) => {
-      const a = Math.floor((14 - month) / 12);
-      year = year + 4800 - a;
-      month = month + 12 * a - 3;
-      return (
-        day +
-        Math.floor((153 * month + 2) / 5) +
-        365 * year +
-        Math.floor(year / 4) -
-        Math.floor(year / 100) +
-        Math.floor(year / 400) -
-        32045
-      );
-    };
-
-    const JDNToEthiopian = (jdn: number) => {
-      const r = (jdn - 1723856) % 1461;
-      const n = (r % 365) + 365 * Math.floor(r / 1460);
-
-      const year =
-        4 * Math.floor((jdn - 1723856) / 1461) +
-        Math.floor(r / 365) -
-        Math.floor(r / 1460);
-      const month = Math.floor(n / 30) + 1;
-      const day = (n % 30) + 1;
-
-      return { year, month, day };
-    };
-
     const gregorianYear = gregorianDate.getFullYear();
     const gregorianMonth = gregorianDate.getMonth() + 1;
     const gregorianDay = gregorianDate.getDate();
@@ -121,5 +121,15 @@ export const useCalendar = () => {
     return options?.includeTime ? `${timeString}፣ ${dateStr}` : dateStr;
   };
 
-  return { toEthiopian };
+  const getYear = (): string => {
+    const now = new Date();
+    if (language !== "am") return now.getFullYear().toString();
+
+    const jdn = gregorianToJDN(now.getFullYear(), now.getMonth() + 1, now.getDate());
+    const ethiopianDate = JDNToEthiopian(jdn);
+
+    return `${ethiopianDate.year} E.C`;
+  };
+
+  return { toEthiopian, getYear };
 };

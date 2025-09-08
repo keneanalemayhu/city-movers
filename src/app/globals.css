@@ -11,6 +11,8 @@
 
 :root {
   --font-amharic: "Entoto", sans-serif;
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
 }
 
 @theme inline {
@@ -135,13 +137,18 @@
 }
 
 html {
-  font-family: var(--font-sans);
+  font-family: var(--font-sans); /* Default: English */
 }
 
-:lang(am) {
-  font-family: var(--font-amharic);
-}
-
+:lang(am),
 .amharic {
-  font-family: var(--font-amharic);
+  font-family: var(--font-amharic); /* Amharic text */
+}
+
+body, p, h1, h2, h3, h4, h5, h6, span, a, li {
+  font-family: inherit;
+}
+
+[data-geez-text] {
+  font-family: var(--font-amharic) !important;
 }
