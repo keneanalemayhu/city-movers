@@ -1,0 +1,13 @@
+# *
+User-agent: *
+Allow: /
+
+# *
+User-agent: *
+Disallow: /contact.php
+
+# Host
+Host: https://citymoverset.com
+
+# Sitemaps
+Sitemap: https://citymoverset.com/sitemap.xml
